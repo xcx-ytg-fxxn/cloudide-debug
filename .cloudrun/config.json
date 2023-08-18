@@ -1,0 +1,9 @@
+
+{
+  "dockerfileDir": "",
+  "buildDir": "",
+  "containerPort": 8080,
+  "envParams": {},
+  "cpu": 0.5,
+  "mem": 1
+}
