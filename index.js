@@ -98,7 +98,7 @@ app.get("/shellexec", async(req, res)=>{
 // 测试接口
 app.get("/test", async (req, res) => {
   let begin = Date.now();
-  let result = '测试结果:%%';
+  let result = '测试结果:@@';
   res.send(result);
   const logger = log4js.getLogger('MVC-LOGGER');
   logger.info(commonUtil.printLog(req, Date.now() - begin, true));
