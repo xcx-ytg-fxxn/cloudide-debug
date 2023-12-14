@@ -3,7 +3,7 @@ FROM alpine:3.13
 
 # 安装基础命令
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
-&& apk add --update --no-cache ca-certificates nodejs npm curl openssh tzdata && \
+&& apk add --update --no-cache ca-certificates nodejs npm curl openssh yum rpm git tzdata && \
     rm -f /var/cache/apk/*
 
 # 设置时区
